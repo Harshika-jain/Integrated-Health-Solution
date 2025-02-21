@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Form</title>
+    <link rel="stylesheet" href="registration.css">
+</head>
+
+<body>
+    <div class="form-container">
+        <div class="patient-form">
+            <h2>Patient Form</h2>
+            <form id="registration">
+                <div class="form-group">
+                    <label for="first-name">First Name:</label>
+                    <input type="text" id="first-name" name="first-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name:</label>
+                    <input type="text" id="last-name" name="last-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone no.:</label>
+                    <input type="text" id="phone" name="phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="dob">DOB:</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+                <div class="form-group">
+                    <label>Gender:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="male" name="gender" value="Male">
+                        <label for="male">Male</label>
+                        <input type="radio" id="female" name="gender" value="Female">
+                        <label for="female">Female</label>
+                        <input type="radio" id="other" name="gender" value="Other">
+                        <label for="other">Other</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" name="city" required>
+                </div>
+                <div class="form-group">
+                    <label for="pin">Pin Code:</label>
+                    <input type="text" id="pin" name="pin" required>
+                </div>
+                <div class="form-group">
+                    <label for="state">State:</label>
+                    <input type="text" id="state" name="state" required>
+                </div>
+                <div class="form-group">
+                    <label>Do you have any Medical History?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="medical-yes" name="medical" value="Yes">
+                        <label for="medical-yes">Yes</label>
+                        <input type="radio" id="medical-no" name="medical" value="No">
+                        <label for="medical-no">No</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+                <p id="message"></p>
+                <button type="button" class="submit-btn" onclick="window.location.href='hospital.html';">continue</button>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCWhopx2gKGaMDHnTL7g9MDC5mCR3hwiiQ",
+            authDomain: "integrated-health-solution.firebaseapp.com",
+            projectId: "integrated-health-solution",
+            storageBucket: "integrated-health-solution.appspot.com",
+            messagingSenderId: "78109388676",
+            appId: "1:78109388676:web:25c92fc8d40b75fc7ef7d1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Handle form submission
+        document.getElementById("registration").addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Get form values
+            const firstName = document.getElementById("first-name").value;
+            const lastName = document.getElementById("last-name").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const age = document.getElementById("age").value;
+            const dob = document.getElementById("dob").value;
+            const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+            const address = document.getElementById("address").value;
+            const city = document.getElementById("city").value;
+            const pin = document.getElementById("pin").value;
+            const state = document.getElementById("state").value;
+            const medicalHistory = document.querySelector('input[name="medical"]:checked')?.value || "";
+
+            const fullName = `${firstName} ${lastName}`;
+
+            // Save data to Firebase
+            set(ref(db, 'patients/' + fullName), {
+                firstName,
+                lastName,
+                fullName,
+                phone,
+                email,
+                age,
+                dob,
+                gender,
+                address,
+                city,
+                pin,
+                state,
+                medicalHistory
+            }).then(() => {
+                document.getElementById("message").textContent = "Registration successful!";
+                document.getElementById("registration").reset();
+                setTimeout(() => window.location.href = 'hospital.html', 2000); // Redirect after 2 seconds
+            }).catch((error) => {
+                document.getElementById("message").textContent = "Error: " + error.message;
+            });
+        });
+    </script>
+</body>
+
+</html>

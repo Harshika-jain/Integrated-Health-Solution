@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrated Health Solution</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body background="back.jpg">
+  <div class="container">
+    <div class="left-section">
+      <h1>Integrated <br> <span>HEALTH SOLUTION</span></h1>
+      <div class="illustration">
+        <img src="clipart1.png" alt="Nurse" class="nurse">
+      </div>
+    </div>
+    <div class="right-section">
+      <h2>Register Yourself</h2>
+      <form id="registration-form">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="tel" id="phone" placeholder="Phone No." required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Register</button> 
+      </form>
+      <p id="message"></p>
+      <button type="submit" onclick="location.href='registration_page.html'; return false;">continue</button>
+
+    </div>
+  </div>
+
+  <script type="module">
+    // Import the functions you need from the SDKs you need
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCWhopx2gKGaMDHnTL7g9MDC5mCR3hwiiQ",
+      authDomain: "integrated-health-solution.firebaseapp.com",
+      projectId: "integrated-health-solution",
+      storageBucket: "integrated-health-solution.appspot.com",
+      messagingSenderId: "78109388676",
+      appId: "1:78109388676:web:25c92fc8d40b75fc7ef7d1"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Get reference to the Firebase database
+    const db = getDatabase(app);
+
+    // Handle form submission
+    document.getElementById("registration-form").addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent page reload
+
+      const name = document.getElementById("name").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+
+      // Push data to Firebase
+      set(ref(db, 'user/' + name), {
+        username: name,
+        email: email,
+        phoneNumber: phone
+      }).then(() => {
+        document.getElementById("message").textContent = "Registration successful!";
+      }).catch((error) => {
+        document.getElementById("message").textContent = "Error: " + error.message;
+      });
+    });
+  </script>
+</body>
+</html>

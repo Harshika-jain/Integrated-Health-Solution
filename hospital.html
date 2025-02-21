@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Hospitals</title>
+    <link rel="stylesheet" href="hospital.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="search-bar">
+            <label for="city">Search City:</label>
+            <input type="text" id="city" value="Moradabad, Uttar Pradesh">
+            <button onclick="updateCity()">Search</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="content">
+            <div class="intro">
+                <h1>Best Near By Hospitals</h1>
+                <div class="stars">★★★★★</div>
+                <div class="hospital-icon"></div>
+            </div>
+<!-- Right Section: Hospital List -->
+<div class="hospital-list">
+    <div class="hospital-card">
+        <img src="hospital1.jpg" alt="TMU Hospital">
+        <div class="hospital-info">
+            <h3><a href="doctor.html">TMU Hospital</a></h3>
+            <p>Moradabad, UP</p>
+            <p>Multispeciality Hospital</p>
+            <div class="rating">★★★★☆</div>
+        </div>
+    </div>
+
+    <div class="hospital-card">
+        <img src="hospital2.jpg" alt="Ujala Cygnus Bright Star Hospital">
+        <div class="hospital-info">
+            <h3>Ujala Cygnus Bright Star Hospital</h3>
+            <p>Moradabad, UP</p>
+            <p>Multispeciality Hospital</p>
+            <div class="rating">★★★★☆</div>
+        </div>
+    </div>
+
+    <div class="hospital-card">
+        <img src="hospital3.png" alt="Sri Sai Hospital">
+        <div class="hospital-info">
+            <h3>Sri Sai Hospital</h3>
+            <p>Moradabad, UP</p>
+            <p>Multispeciality Hospital</p>
+            <div class="rating">★★★★☆</div>
+        </div>
+    </div>
+    <div class="hospital-card">
+        <img src="Hospital.jpg" alt="Lakshy & Son's Star Hospital">
+        <div class="hospital-info">
+            <h3>Lakshy & Son's Star Hospital</h3>
+            <p>Moradabad, UP</p>
+            <p>Multispeciality Hospital</p>
+            <div class="rating">★★★★☆</div>
+        </div>
+    </div>
+    <div class="hospital-card">
+        <img src="image1.jpg" alt="Saraswati Heart Care & Trauma Centre">
+        <div class="hospital-info">
+            <h3>Vansh Hospital</h3>
+            <p>Moradabad, UP</p>
+            <p>Multispeciality Hospital</p>
+            <div class="rating">★★★★☆</div>
+        </div>
+    </div>
+</div>
+
+</section>
+</main>
+
+            <div class="hospital-list">
+                <!-- Hospitals will be dynamically added here -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        let currentCity = "Moradabad, Uttar Pradesh";
+
+        function updateCity() {
+            let city = document.getElementById("city").value.trim();
+
+            if (!city) {
+                alert("Please enter a city name.");
+                return;
+            }
+
+            currentCity = city; // Update current city
+            fetchHospitals(city); // Fetch hospitals for the new city
+        }
+
+        function fetchHospitals(city) {
+            console.log("Fetching hospitals for:", city);
+
+            // Fetch hospitals dynamically based on city
+            let hospitals = [];
+
+            // Example hospitals for Moradabad, Uttar Pradesh
+            if (city.toLowerCase() === "moradabad, uttar pradesh") {
+                hospitals = [
+                    { name: "TMU Hospital", speciality: "Multispeciality", rating: 4, image: "hospital1.jpg", city: "Moradabad, UP" },
+                    { name: "Ujala Cygnus Bright Star Hospital", speciality: "Multispeciality", rating: 4, image: "hospital2.jpg", city: "Moradabad, UP" }
+                ];
+            }
+
+            // Example hospitals for Rampur (case-insensitive comparison)
+            else if (city.toLowerCase() === "rampur") {
+                hospitals = [
+                    { name: "Rampur District Hospital", speciality: "General Medicine", rating: 5, image: "Rimage2.jpg", city: "Rampur" },
+                    { name: "Apex Hospital Rampur", speciality: "Cardiology", rating: 4, image: "Riamge1.jpg", city: "Rampur" },
+                    { name: "Shri Ram Hospital Rampur", speciality: "Orthopedics", rating: 4, image: "Riamge3.jpg", city: "Rampur" },
+                    { name: "Shakti Hospital Rampur", speciality: "General Surgery", rating: 3, image: "Rimage.jpg", city: "Rampur" }
+                ];
+            }
+
+            // Example hospitals for Amroha (case-insensitive comparison)
+            else if (city.toLowerCase() === "amroha") {
+                hospitals = [
+                    { name: "Amroha Medical Center", speciality: "General Surgery", rating: 5, image: "Himage.jpg", city: "Amroha" },
+                    { name: "Arogya Hospital Amroha", speciality: "Pediatrics", rating: 4, image: "Himage1.jpg", city: "Amroha" },
+                    { name: "Shifa Hospital Amroha", speciality: "Gynecology", rating: 4, image: "Himage2.jpg", city: "Amroha" },
+                    { name: "Sunrise Hospital Amroha", speciality: "Orthopedics", rating: 3, image: "Himage3.jpg", city: "Amroha" },
+                    { name: "Jeevan Hospital Amroha", speciality: "Cardiology", rating: 4, image: "Hospital.jpg", city: "Amroha" }
+                ];
+            }
+
+            // Default hospitals for other cities
+            else {
+                hospitals = [
+                    { name: "Om Shanti Hospital", speciality: "Multispeciality", rating: 4, image: "image1.jpg", city: city },
+                    { name: "Health Care Center", speciality: "Cardiology", rating: 5, image: "image2.jpg", city: city },
+                    { name: "Khulok Hospital", speciality: "Orthopedics", rating: 3, image: "images3.jpg", city: city },
+                    { name: "Shri Ram Murti Smarak Institute Of Medical Sciences Hospital", speciality: "Institute of Medical", rating: 3, image: "Hospital.jpg", city: city }
+                ];
+            }
+
+            updateHospitalList(hospitals, city);
+        }
+
+        function updateHospitalList(hospitals, city) {
+            let hospitalList = document.querySelector(".hospital-list");
+
+            // Remove all previous hospitals
+            hospitalList.innerHTML = '';
+
+            if (hospitals.length === 0) {
+                hospitalList.innerHTML += `<p>No hospitals found in ${city}.</p>`;
+                return;
+            }
+
+            let layoutClass = "";
+            if (city.toLowerCase() === "rampur") {
+                layoutClass = "rampur-card";
+            } else if (city.toLowerCase() === "amroha") {
+                layoutClass = "amroha-card";
+                hospitalList.innerHTML = `<div class="amroha-grid"></div>`;
+            }
+
+
+            hospitals.forEach(hospital => {
+                // Change design based on city
+                let cityClass = city.toLowerCase().replace(/\s+/g, '-'); // E.g., 'rampur' -> 'rampur'
+
+                let hospitalCard = `
+                    <div class="hospital-card ${cityClass}">
+                        <img src="${hospital.image}" alt="${hospital.name}">
+                        <div class="hospital-info">
+                            <h3>${hospital.name}</h3>
+                            <p>${hospital.city}</p>
+                            <p>${hospital.speciality}</p>
+                           <div class="rating">${"★".repeat(hospital.rating)}${"☆".repeat(5 - hospital.rating)}</div>
+                        </div>
+                    </div>
+                `;
+                if (city.toLowerCase() === "amroha") {
+                    document.querySelector(".amroha-grid").insertAdjacentHTML("beforeend", hospitalCard);
+                } else {
+
+                hospitalList.insertAdjacentHTML("beforeend", hospitalCard);
+                }
+            });
+
+            console.log("Updated hospital list for", city);
+        }
+    </script>
+
+    <style>
+        /* Default styling for hospitals */
+        .hospital-card {
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Moradabad styling */
+        .moradabad-uttar-pradesh .hospital-card {
+            background-color: #003366;
+            color: white;
+        }
+
+        /* Other cities styling */
+        .rampur.hospital-card {
+        background-color: rgb(19, 108, 116);
+            color: black;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-left: 5px solid #FFD700;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+         /* Other cities styling */
+         .amroha.hospital-card {
+            background-color:rgb(45, 47, 132);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        /* Grid Container for Amroha */
+        .amroha-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+    /* Other cities styling */
+        .bareilly.hospital-card {
+            background-color:rgb(170, 176, 162); /* Pure White */
+            color: #0047AB; /* Medium Blue */
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            border-left: 5px solid rgb(36, 18, 151);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+    
+        /* Hospital Info Styling */
+        .hospital-info {
+            margin-left: 20px;
+        }
+
+        .hospital-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .hospital-info p {
+            margin: 5px 0;
+        }
+
+        .rating {
+            font-size: 16px;
+        }
+    </style>
+
+</body>
+</html>
