@@ -1,0 +1,63 @@
+/* Hospital List Styling */
+.hospital-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Hospital Card Design */
+.hospital-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.hospital-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hospital Image */
+.hospital-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+/* Hospital Info */
+.hospital-info {
+    padding: 15px;
+    text-align: center;
+}
+
+.hospital-info h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.location {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+.speciality {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+/* Star Rating */
+.rating {
+    font-size: 18px;
+    color: #fbc02d;
+}
